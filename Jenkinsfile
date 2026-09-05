@@ -19,7 +19,7 @@ pipeline {
         stage('Push to AWS ECR') {
             steps {
                 // 1. Authenticate Docker with your private AWS ECR registry
-                sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --			username AWS --password-stdin ${ECR_REGISTRY}"
+                sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
                 
                 // 2. Push the tagged image up to ECR
                 sh "docker push ${ECR_REGISTRY}:${IMAGE_TAG}"
