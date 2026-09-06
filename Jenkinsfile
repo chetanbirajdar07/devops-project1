@@ -25,5 +25,12 @@ pipeline {
                 sh "docker push ${ECR_REGISTRY}:${IMAGE_TAG}"
             }
         }
+        stage('Deploy to server'){
+            steps {
+                sh "docker stop my-webpage || true"
+                sh "docker rm my-webpage || true"
+                sh "docker run -d -p 80:80 --name my-web-container ${ECR_REGISTRY}:${IMAGE_TAG}"
+            }
+        }
     }
 }
